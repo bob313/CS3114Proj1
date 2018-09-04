@@ -65,10 +65,8 @@ public class Hash {
         }
         for (int i = 0; (hashtable[pos] != null); i++) {
             pos = (home + probe(i)) % hashtable.length; // probe
-            if (hashtable[pos] != null) {
-                if (k.equals(hashtable[pos].key())) {
-                    return false;
-                }
+            if (hashtable[pos] != null && k.equals(hashtable[pos].key())) {
+                return false;
             }
         }
         this.count++;
@@ -86,10 +84,8 @@ public class Hash {
      */
     private void remake(Handle[] old, Handle[] bigger) {
         for (int i = 0; i < old.length; i++) {
-            if (old[i] != null) {
-                if (!old[i].getDeleted()) {
-                    this.add(old[i].key(), old[i]);
-                }
+            if (old[i] != null && !old[i].getDeleted()) {
+                this.add(old[i].key(), old[i]);
             }
         }
     }
