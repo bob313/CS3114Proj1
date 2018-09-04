@@ -1,9 +1,10 @@
 public class MemoryManager {
 
  // Constructor. poolsize defines the size of the memory pool in bytes
+    private int poolSize;
 
     public MemoryManager(int poolsize) {
-
+        poolSize = poolsize;
         
 
     }
@@ -17,6 +18,11 @@ public class MemoryManager {
     {
         Handle tempHandle = new Handle(5, 5, name); 
         return tempHandle;
+    }
+    
+    public int getPoolSize()
+    {
+        return poolSize;
     }
     // Insert a record and return its position handle.
 
