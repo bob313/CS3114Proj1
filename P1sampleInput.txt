@@ -10,6 +10,7 @@ add   Death     Note
     update delete   Death   Note<SEP>  Genre
     update add   Death   Note<SEP>  Genre  <SEP> Anime
       print blocks
+print hashtable
         add   	Can  	You 		Handle? 
         add  Another Test	
         print hashtable

@@ -66,7 +66,7 @@ public class Hash {
         for (int i = 0; (hashtable[pos] != null); i++) {
             pos = (home + probe(i)) % hashtable.length; // probe
             if (hashtable[pos] != null) {
-                if (k == hashtable[pos].key()) {
+                if (k.equals(hashtable[pos].key())) {
                     return false;
                 }
             }
@@ -133,8 +133,8 @@ public class Hash {
         if (hashtable[pos] == null) {
             return false;
         }
-        else if (!hashtable[pos].getDeleted() && key == (hashtable[pos])
-            .key()) { // Found it
+        else if (!hashtable[pos].getDeleted() && key.equals((hashtable[pos])
+            .key())) { // Found it
             return true;
         }
         return false; // K not in hash table
@@ -152,7 +152,7 @@ public class Hash {
                 sum++;
             }
         }
-        if (sum > 0) {
+        if (sum >= 0) {
             System.out.println("Total records: " + sum);
         }
     }

@@ -44,6 +44,15 @@ public class HashTest extends TestCase {
         assertEquals(myHash.getHashtable().length, 16);
         assertEquals(myHash.getHandle(4).key(), "last");
     }
+    
+    public void testadd2() {
+        Hash myHash = new Hash(10);
+        Handle first = new Handle(4, 4, "Death Note");
+        Handle second = new Handle(4, 4, "Death Note");
+        myHash.add("Death Note", first);
+        assertEquals(myHash.add("Death Note", second), false);
+        myHash.print();
+    }
 
 
     /**

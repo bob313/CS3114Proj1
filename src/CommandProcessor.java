@@ -109,6 +109,7 @@ public class CommandProcessor {
         String name;
         name = addCommand.replace("add", "");
         name = formatString(name);
+        System.out.println("NAME: " + name);
         boolean check;
         Handle handle = manager.getHandle(name);
         check = hash.add(name, handle);
