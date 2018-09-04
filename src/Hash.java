@@ -1,94 +1,140 @@
-import java.util.ArrayList;
 
 /**
  * Stub for hash table class
  *
- * @author CS3114 staff
+ * @author bob313 cdc97
  * @version August 2018
  */
 
 public class Hash {
-    Handle[] hashtable;
-    Handle[] temp;
-    int count;
+    private Handle[] hashtable;
+    private Handle[] temp;
+    private int count;
 
 
     /**
      * Create a new Hash object.
+     * @param size is initial size of hashtable
      * 
      */
     public Hash(int size) {
         hashtable = new Handle[size];
         count = 0;
     }
-    
- /**
-  * Insert e into hash table HT
-  * @param k
-  * @param elem
-  * @return
-  */
-    boolean add(String k, Handle elem) {
-      int home;                     // Home position for e
-      int pos = home = h(k, hashtable.length);        // Init probe sequence
-      if (count >= hashtable.length/2) {
-          temp = hashtable;
-          hashtable = new Handle[hashtable.length*2];
-          this.remake(temp, hashtable);
-          return true;
-      }
-      for (int i=1; "" != (hashtable[pos]).key(); i++) {
-        pos = (home + probe(k, i)) % hashtable.length; // probe
-        if (k == hashtable[pos].key()) {
-          return false;
-        }
-      }
-      hashtable[pos] = elem;
-      return true;
+
+
+    /**
+     * 
+     * @param index of the hashtable
+     * @return handle is returend
+     */
+    public Handle getHandle(int index) {
+        return hashtable[index];
+    }
+
+    /**
+     * 
+     * @return the whole hashtable
+     */
+    public Handle[] getHashtable() {
+        return hashtable;
     }
     
+    /**
+     * Insert e into hash table HT
+     * 
+     * @param k is the key
+     * @param elem is the handle to be inserted
+     * @return true if elem was added successfully
+     */
+    public boolean add(String k, Handle elem) {
+        int home = h(k, hashtable.length); // Home position for e
+        int pos = home; // Init probe sequence
+        if (count >= hashtable.length / 2) {
+            temp = hashtable;
+            hashtable = new Handle[hashtable.length * 2];
+            this.count = 0;
+            this.remake(temp, hashtable);
+        }
+        for (int i = 0; (hashtable[pos] != null && !(hashtable[pos]
+            .getDeleted())); i++) {
+            pos = (home + probe(i + 1)) % hashtable.length; // probe
+            if (hashtable[pos] != null && k == hashtable[pos].key()) {
+                return false;
+            }
+        }
+        this.count++;
+        hashtable[pos] = elem;
+        return true;
+    }
+
+    /**
+     * 
+     * @param old is the old array
+     * @param bigger is the new array
+     */
     private void remake(Handle[] old, Handle[] bigger) {
-        for (int i=1; i < old.length; i++) {
-            if (old[i].key() != "") {
-                this.add(old[i].key, old[i]);
+        for (int i = 0; i < old.length; i++) {
+            if (old[i] != null && !old[i].getDeleted()) {
+                this.add(old[i].key(), old[i]);
             }
         }
     }
-    
+
+
     /**
-     * @param k
-     * @param elem
+     * @param k is the key to remove
+     * @return true if object was removed
      */
-    boolean remove(String k, String elem) {
-        
+    public boolean remove(String key) {
+        if (search(key)) {
+            int home;
+            int pos = home = h(key, hashtable.length); // Initial position is
+                                                       // the home slot
+            for (int i = 0; (null != (hashtable[pos]) && (key != hashtable[pos]
+                .key())); i++)
+                pos = (home + probe(1 + i)) % hashtable.length; // Next on probe
+                                                                // sequence
+            hashtable[pos].setDeleted(true);
+            return true;
+        }
+        return false;
     }
-    
- /**
-  * Search for the record with Key K
-  * @param k
-  * @param elem
-  * @return
-  */
-    boolean search(String key, String elem) {
-      int home;              // Home position for K
-      int pos = home = h(key, hashtable.length); // Initial position is the home slot
-      for (int i = 1;
-           (key != (hashtable[pos]).key()) && ("" != (hashtable[pos]).key());
-           i++)
-        pos = (home + probe(key, i)) % hashtable.length; // Next on probe sequence
-      if (key == (hashtable[pos]).key()) {   // Found it
-        return true;
-      }
-      else return false;            // K not in hash table
-    }
-    
+
+
     /**
+     * Search for the record with Key K
      * 
+     * @param k is the key to search for
+     * @return true if key was found
      */
-    void print() {
+    public boolean search(String key) {
+        int home; // Home position for K
+        int pos = home = h(key, hashtable.length); // Initial position is the
+                                                   // home slot
+        for (int i = 0; (null != (hashtable[pos]) && (key != hashtable[pos]
+            .key())); i++)
+            pos = (home + probe(1 + i)) % hashtable.length; // Next on probe
+                                                            // sequence
+        if (hashtable[pos] == null) {
+            return false;
+        }
+        else if (!hashtable[pos].getDeleted() && key == (hashtable[pos])
+            .key()) { // Found it
+            return true;
+        }
+        else
+            return false; // K not in hash table
+    }
+
+
+    /**
+     * prints the hashtable
+     */
+    public void print() {
         int sum = 0;
-        for (int i=0; i < hashtable.length; i++) {
-            if(hashtable[i].key() != "") {
+        for (int i = 0; i < hashtable.length; i++) {
+            if (hashtable[i] != null && !hashtable[i].getDeleted()) {
                 System.out.println("|" + hashtable[i].key() + "| " + i);
                 sum++;
             }
@@ -97,15 +143,16 @@ public class Hash {
             System.out.println("Total records: " + sum);
         }
     }
-    
+
+
     /**
-     * @param k
      * @param i
-     * @return
+     * @return i * i
      */
-    int probe(String k, int i) {
+    private int probe(int i) {
         return i * i;
     }
+
 
     /**
      * Compute the hash function. Uses the "sfold" method from the OpenDSA
