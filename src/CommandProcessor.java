@@ -3,25 +3,27 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * 
- */
-
-/**
- * @author Christian
- *
+ * @author cdc97 bob313
+ * Processes command file and feeds instructions Hash and MemoryManager.
  */
 public class CommandProcessor {
     
     private Hash hash;
     private MemoryManager manager;
     
-    public CommandProcessor(int memorySize, int hashSize, File file)
+    /**
+     * Constructor for CommandProcessor. Takes inputs from main method and processes the commands.
+     * @param memorySize size of MemoryManager received from main method
+     * @param hashSize size of Hash received from main method
+     * @param file the input file containing the commands to be read and processed
+     */
+    public CommandProcessor(String memorySize, String hashSize, String file)
     {
-        hash = new Hash(hashSize);
-        manager = new MemoryManager(memorySize);
+        hash = new Hash(Integer.valueOf(hashSize));
+        manager = new MemoryManager(Integer.valueOf(memorySize));
         Scanner scan = null;
         try {
-            scan = new Scanner(file);
+            scan = new Scanner(new File(file));
         }
         catch (FileNotFoundException e) {
             System.out.println("Comman File Not Found");
@@ -34,6 +36,11 @@ public class CommandProcessor {
         
     }
     
+    /**
+     * Processes a given line of the command file for the command found in the line
+     * @param commandString the line of the command file being processed
+     * @return true if proper command present false if not
+     */
     private boolean processCommand(String commandString) {
         if (commandString.contains("update"))
         {
@@ -59,6 +66,10 @@ public class CommandProcessor {
         
     }
 
+    /**
+     * Handles the 
+     * @param updateCommand
+     */
     private void update(String updateCommand) {
         String updateShort = updateCommand.replace("update", "");
         //boolean check;
