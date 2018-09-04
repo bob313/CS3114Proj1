@@ -5,7 +5,7 @@ public class CommandProcessorTest extends TestCase{
     
     public void testConstructor()
     {
-        processor = new CommandProcessor("32", "32", "P1sampleInput.txt");
+        processor = new CommandProcessor("32", "10", "P1sampleInput.txt");
         int x = 8;
         assertEquals(x, 8);
     }

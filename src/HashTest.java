@@ -2,19 +2,24 @@ import student.TestCase;
 
 // -------------------------------------------------------------------------
 /**
- *  Test the hash function (you should throw this away for your project)
+ * Test the hash function (you should throw this away for your project)
  *
- *  @author bob313 cdc97
- *  @version August, 2018
+ * @author bob313 cdc97
+ * @version August, 2018
  */
 public class HashTest extends TestCase {
+
     /**
      * Sets up the tests that follow.
      */
     public void setUp() {
         // Nothing Here
     }
-    
+
+
+    /**
+     * tests add method
+     */
     public void testadd() {
         Hash myHash = new Hash(4);
         Handle first = new Handle(4, 4, "first");
@@ -23,6 +28,7 @@ public class HashTest extends TestCase {
         Handle fourth = new Handle(4, 4, "fourth");
         Handle last = new Handle(7, 4, "last");
         myHash.add("first", first);
+        assertEquals(myHash.add("first", first), false);
         assertEquals(myHash.getHandle(2).key(), "first");
         myHash.add("second", second);
         assertEquals(myHash.getHashtable().length, 4);
@@ -38,7 +44,11 @@ public class HashTest extends TestCase {
         assertEquals(myHash.getHashtable().length, 16);
         assertEquals(myHash.getHandle(4).key(), "last");
     }
-    
+
+
+    /**
+     * tests remove method
+     */
     public void testremove() {
         Hash myHash = new Hash(4);
         Handle first = new Handle(4, 4, "first");
@@ -54,7 +64,11 @@ public class HashTest extends TestCase {
         assertEquals(myHash.search("fourth"), true);
         assertEquals(myHash.search("first"), false);
     }
-    
+
+
+    /**
+     * tests the search method
+     */
     public void testsearch() {
         Hash myHash = new Hash(4);
         Handle first = new Handle(4, 4, "first");
@@ -65,7 +79,11 @@ public class HashTest extends TestCase {
         assertEquals(myHash.search("fourth"), true);
         assertEquals(myHash.search("second"), false);
     }
-    
+
+
+    /**
+     * tests the print method
+     */
     public void testprint() {
         Hash myHash = new Hash(4);
         Handle first = new Handle(4, 4, "first");

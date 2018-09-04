@@ -35,6 +35,6 @@ public class Recordstore {
      *     Command line parameters
      */
     public static void main(String[] args) {
-        // This is the main file for the program.
+        new CommandProcessor(args[0], args[1], args[2]);
     }
 }

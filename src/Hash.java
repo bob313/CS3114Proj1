@@ -14,7 +14,9 @@ public class Hash {
 
     /**
      * Create a new Hash object.
-     * @param size is initial size of hashtable
+     * 
+     * @param size
+     *            is initial size of hashtable
      * 
      */
     public Hash(int size) {
@@ -25,12 +27,14 @@ public class Hash {
 
     /**
      * 
-     * @param index of the hashtable
+     * @param index
+     *            of the hashtable
      * @return handle is returend
      */
     public Handle getHandle(int index) {
         return hashtable[index];
     }
+
 
     /**
      * 
@@ -39,12 +43,15 @@ public class Hash {
     public Handle[] getHashtable() {
         return hashtable;
     }
-    
+
+
     /**
      * Insert e into hash table HT
      * 
-     * @param k is the key
-     * @param elem is the handle to be inserted
+     * @param k
+     *            is the key
+     * @param elem
+     *            is the handle to be inserted
      * @return true if elem was added successfully
      */
     public boolean add(String k, Handle elem) {
@@ -56,11 +63,12 @@ public class Hash {
             this.count = 0;
             this.remake(temp, hashtable);
         }
-        for (int i = 0; (hashtable[pos] != null && !(hashtable[pos]
-            .getDeleted())); i++) {
-            pos = (home + probe(i + 1)) % hashtable.length; // probe
-            if (hashtable[pos] != null && k == hashtable[pos].key()) {
-                return false;
+        for (int i = 0; (hashtable[pos] != null); i++) {
+            pos = (home + probe(i)) % hashtable.length; // probe
+            if (hashtable[pos] != null) {
+                if (k == hashtable[pos].key()) {
+                    return false;
+                }
             }
         }
         this.count++;
@@ -68,33 +76,38 @@ public class Hash {
         return true;
     }
 
+
     /**
      * 
-     * @param old is the old array
-     * @param bigger is the new array
+     * @param old
+     *            is the old array
+     * @param bigger
+     *            is the new array
      */
     private void remake(Handle[] old, Handle[] bigger) {
         for (int i = 0; i < old.length; i++) {
-            if (old[i] != null && !old[i].getDeleted()) {
-                this.add(old[i].key(), old[i]);
+            if (old[i] != null) {
+                if (!old[i].getDeleted()) {
+                    this.add(old[i].key(), old[i]);
+                }
             }
         }
     }
 
 
     /**
-     * @param k is the key to remove
+     * @param key
+     *            is the key to remove
      * @return true if object was removed
      */
     public boolean remove(String key) {
         if (search(key)) {
-            int home;
-            int pos = home = h(key, hashtable.length); // Initial position is
-                                                       // the home slot
+            int home = h(key, hashtable.length);
+            int pos = home; // Initial position is the home slot
             for (int i = 0; (null != (hashtable[pos]) && (key != hashtable[pos]
-                .key())); i++)
-                pos = (home + probe(1 + i)) % hashtable.length; // Next on probe
-                                                                // sequence
+                .key())); i++) {
+                pos = (home + probe(i)) % hashtable.length; // Next on probe
+            } // sequence
             hashtable[pos].setDeleted(true);
             return true;
         }
@@ -105,17 +118,18 @@ public class Hash {
     /**
      * Search for the record with Key K
      * 
-     * @param k is the key to search for
+     * @param key
+     *            is the key to search for
      * @return true if key was found
      */
     public boolean search(String key) {
-        int home; // Home position for K
-        int pos = home = h(key, hashtable.length); // Initial position is the
-                                                   // home slot
+        int home = h(key, hashtable.length); // Home position for K
+        int pos = home; // Initial position is the
+                        // home slot
         for (int i = 0; (null != (hashtable[pos]) && (key != hashtable[pos]
-            .key())); i++)
-            pos = (home + probe(1 + i)) % hashtable.length; // Next on probe
-                                                            // sequence
+            .key())); i++) {
+            pos = (home + probe(i)) % hashtable.length; // Next on probe
+        } // sequence
         if (hashtable[pos] == null) {
             return false;
         }
@@ -123,8 +137,7 @@ public class Hash {
             .key()) { // Found it
             return true;
         }
-        else
-            return false; // K not in hash table
+        return false; // K not in hash table
     }
 
 
