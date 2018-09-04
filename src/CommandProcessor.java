@@ -61,20 +61,20 @@ public class CommandProcessor {
 
     private void update(String updateCommand) {
         String updateShort = updateCommand.replace("update", "");
-        boolean check;
+        //boolean check;
         if (updateCommand.contains("add"))
         {
             updateShort = updateShort.replace("add", "");
             updateShort = formatString(updateShort);
             String[] inputs = updateShort.split("<SEP>");
-            check = hash.updateAdd(inputs[0], inputs[1], inputs[2]);
+            //check = hash.updateAdd(inputs[0], inputs[1], inputs[2]);
            
             System.out.println("|"+inputs[0]+"| todo");
         } else {
             updateShort = updateShort.replace("delete", "");
             updateShort = formatString(updateShort);
             String[] inputs = updateShort.split("<SEP>");
-            check = hash.updateDelete(inputs[0], inputs[1]);
+            //check = hash.updateDelete(inputs[0], inputs[1]);
             System.out.println("|"+inputs[0]+"| todo");
         }
         
@@ -99,7 +99,8 @@ public class CommandProcessor {
         name = addCommand.replace("add", "");
         name = formatString(name);
         boolean check;
-        check = hash.add(name);
+        Handle handle = manager.getHandle(name);
+        check = hash.add(name, handle);
         if (check)
         {
             System.out.println("|"+name+"| has been added to the Name database.");
