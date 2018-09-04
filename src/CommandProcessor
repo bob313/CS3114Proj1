@@ -60,17 +60,34 @@ public class CommandProcessor {
     }
 
     private void update(String updateCommand) {
-        // TODO Auto-generated method stub
+        String updateShort = updateCommand.replace("update", "");
+        boolean check;
+        if (updateCommand.contains("add"))
+        {
+            updateShort = updateShort.replace("add", "");
+            updateShort = formatString(updateShort);
+            String[] inputs = updateShort.split("<SEP>");
+            check = hash.updateAdd(inputs[0], inputs[1], inputs[2]);
+           
+            System.out.println("|"+inputs[0]+"| todo");
+        } else {
+            updateShort = updateShort.replace("delete", "");
+            updateShort = formatString(updateShort);
+            String[] inputs = updateShort.split("<SEP>");
+            check = hash.updateDelete(inputs[0], inputs[1]);
+            System.out.println("|"+inputs[0]+"| todo");
+        }
+        
         
     }
 
     private void print(String printCommand) {
-        if (printCommand.contains(hashtable))
+        if (printCommand.contains("hashtable"))
         {
             hash.print();
         }
         else {
-            System.out.println("Formatting?"+manager.getBlocks());
+            System.out.println("Formatting?");
         }
         
         
@@ -82,7 +99,7 @@ public class CommandProcessor {
         name = addCommand.replace("add", "");
         name = formatString(name);
         boolean check;
-        check = hash.add();
+        check = hash.add(name);
         if (check)
         {
             System.out.println("|"+name+"| has been added to the Name database.");
@@ -98,7 +115,7 @@ public class CommandProcessor {
         name = deleteCommand.replace("delete", "");
         name = formatString(name);
         boolean check;
-        check = hash.delete();
+        check = hash.remove(name);
         if (check)
         {
             System.out.println("|"+name+"| has been deleted from the Name database.");
@@ -116,7 +133,7 @@ public class CommandProcessor {
         {
             if (!Character.isWhitespace(chars[i]))
             {
-                while (!Character.isWhitespace(chars[i]))
+                while (i < chars.length && !Character.isWhitespace(chars[i]))
                 {
                     newString.append(chars[i]);
                     i++;
@@ -124,7 +141,7 @@ public class CommandProcessor {
                 newString.append(" ");
             }
         }
-        newString.deleteCharAt(newString.length());
+        newString.deleteCharAt(newString.length()-1);
         return newString.toString();
     }
 
