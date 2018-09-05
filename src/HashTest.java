@@ -78,7 +78,35 @@ public class HashTest extends TestCase {
         myHash.print();
     }
 
-
+    /**
+     * more removal tests
+     */
+    public void testremove2() {
+        Hash myHash = new Hash(4);
+        Handle first = new Handle(4, 4, "first");
+        Handle second = new Handle(5, 4, "second");
+        Handle third = new Handle(6, 4, "third");
+        Handle fourth = new Handle(4, 4, "fourth");
+        assertEquals(myHash.remove("first"), false);
+        myHash.print();
+        myHash.add("first", first);
+        myHash.add("second", second);
+        myHash.remove("second");
+        myHash.add("second", second);
+        myHash.print();
+        myHash.add("third", third);
+        myHash.add("fourth", fourth);
+        myHash.print();
+        myHash.remove("first");
+        myHash.remove("second");
+        myHash.print();
+        myHash.remove("third");
+        myHash.remove("fourth");
+        myHash.print();
+        assertEquals(myHash.remove("second"), false);
+        assertEquals(myHash.remove("fifth"), false);
+    }
+    
     /**
      * tests the search method
      */
@@ -103,6 +131,7 @@ public class HashTest extends TestCase {
         Handle second = new Handle(5, 4, "second");
         Handle third = new Handle(6, 4, "third");
         Handle last = new Handle(7, 4, "last");
+        myHash.print();
         myHash.add("first", first);
         assertEquals(myHash.getHandle(2).key(), "first");
         myHash.add("second", second);

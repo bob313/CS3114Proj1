@@ -61,13 +61,18 @@ public class Hash {
             temp = hashtable;
             hashtable = new Handle[hashtable.length * 2];
             this.count = 0;
-            System.out.println("Name hash table size doubled to " + hashtable.length + " slots.");
+            System.out.println("Name hash table size doubled to "
+                + hashtable.length + " slots.");
             this.remake(temp, hashtable);
         }
         for (int i = 0; (hashtable[pos] != null); i++) {
             pos = (home + probe(i)) % hashtable.length; // probe
-            if (hashtable[pos] != null && k.equals(hashtable[pos].key()) 
-                && !hashtable[pos].getDeleted()) {
+            if (hashtable[pos] != null && k.equals(hashtable[pos].key())) {
+                if (hashtable[pos].getDeleted()) {
+                    this.count++;
+                    hashtable[pos] = elem;
+                    return true;
+                }
                 return false;
             }
         }
@@ -102,11 +107,12 @@ public class Hash {
         if (search(key)) {
             int home = h(key, hashtable.length);
             int pos = home; // Initial position is the home slot
-            for (int i = 0; (null != (hashtable[pos]) && (!key.equals(hashtable[pos]
-                .key()))); i++) {
+            for (int i = 0; (null != (hashtable[pos]) && (!key.equals(
+                hashtable[pos].key()))); i++) {
                 pos = (home + probe(i)) % hashtable.length; // Next on probe
             } // sequence
             hashtable[pos].setDeleted(true);
+            count--;
             return true;
         }
         return false;
@@ -150,9 +156,7 @@ public class Hash {
                 sum++;
             }
         }
-        if (sum >= 0) {
-            System.out.println("Total records: " + sum);
-        }
+        System.out.println("Total records: " + sum);
     }
 
 

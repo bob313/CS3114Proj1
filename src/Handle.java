@@ -2,10 +2,10 @@
 /**
  * 
  * @author bob313 cdc97
- *
+ * @version sep 4 2018
  */
 public class Handle {
-    private int mem_pool;
+    private int memPool;
     private int length;
     private String key;
     private boolean tombstone;
@@ -21,7 +21,7 @@ public class Handle {
      *            is the name of the record
      */
     public Handle(int mem, int size, String name) {
-        mem_pool = mem;
+        memPool = mem;
         length = size;
         key = name;
         this.tombstone = false;
@@ -55,5 +55,19 @@ public class Handle {
      */
     public boolean getDeleted() {
         return this.tombstone;
+    }
+    
+    /**
+     * @return the memory pool offset location
+     */
+    public int getMemPool() {
+        return memPool;
+    }
+    
+    /**
+     * @return the length of the record
+     */
+    public int getLength() {
+        return length;
     }
 }
