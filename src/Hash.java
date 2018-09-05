@@ -8,7 +8,6 @@
 
 public class Hash {
     private Handle[] hashtable;
-    private Handle[] temp;
     private int count;
 
 
@@ -57,15 +56,18 @@ public class Hash {
     public boolean add(String k, Handle elem) {
         int home = h(k, hashtable.length); // Home position for e
         int pos = home; // Init probe sequence
+        Handle[] temp;
         if (count >= hashtable.length / 2) {
             temp = hashtable;
             hashtable = new Handle[hashtable.length * 2];
             this.count = 0;
+            System.out.println("Name hash table size doubled to " + hashtable.length + " slots.");
             this.remake(temp, hashtable);
         }
         for (int i = 0; (hashtable[pos] != null); i++) {
             pos = (home + probe(i)) % hashtable.length; // probe
-            if (hashtable[pos] != null && k.equals(hashtable[pos].key())) {
+            if (hashtable[pos] != null && k.equals(hashtable[pos].key()) 
+                && !hashtable[pos].getDeleted()) {
                 return false;
             }
         }
@@ -100,8 +102,8 @@ public class Hash {
         if (search(key)) {
             int home = h(key, hashtable.length);
             int pos = home; // Initial position is the home slot
-            for (int i = 0; (null != (hashtable[pos]) && (key != hashtable[pos]
-                .key())); i++) {
+            for (int i = 0; (null != (hashtable[pos]) && (!key.equals(hashtable[pos]
+                .key()))); i++) {
                 pos = (home + probe(i)) % hashtable.length; // Next on probe
             } // sequence
             hashtable[pos].setDeleted(true);
@@ -122,8 +124,8 @@ public class Hash {
         int home = h(key, hashtable.length); // Home position for K
         int pos = home; // Initial position is the
                         // home slot
-        for (int i = 0; (null != (hashtable[pos]) && (key != hashtable[pos]
-            .key())); i++) {
+        for (int i = 0; (null != (hashtable[pos]) && (!key.equals(hashtable[pos]
+            .key()))); i++) {
             pos = (home + probe(i)) % hashtable.length; // Next on probe
         } // sequence
         if (hashtable[pos] == null) {

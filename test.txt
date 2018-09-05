@@ -1,0 +1,8 @@
+  print           hashtable
+     add  Death Note
+print hashtable
+add   Death     Note    
+delete Death                     Note
+  print           hashtable
+
+

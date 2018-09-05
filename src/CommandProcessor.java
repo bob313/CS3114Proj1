@@ -114,7 +114,6 @@ public class CommandProcessor {
         }
     }
 
-
     private void print(String printCommand) {
         if (printCommand.contains("blocks"))
         {

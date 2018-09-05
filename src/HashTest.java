@@ -45,6 +45,9 @@ public class HashTest extends TestCase {
         assertEquals(myHash.getHandle(4).key(), "last");
     }
     
+    /**
+     * more tests
+     */
     public void testadd2() {
         Hash myHash = new Hash(10);
         Handle first = new Handle(4, 4, "Death Note");
@@ -72,6 +75,7 @@ public class HashTest extends TestCase {
         myHash.remove("second");
         assertEquals(myHash.search("fourth"), true);
         assertEquals(myHash.search("first"), false);
+        myHash.print();
     }
 
 

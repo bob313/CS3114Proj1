@@ -8,7 +8,7 @@ public class Handle {
     private int mem_pool;
     private int length;
     private String key;
-    private boolean deleted;
+    private boolean tombstone;
 
 
     /**
@@ -24,7 +24,7 @@ public class Handle {
         mem_pool = mem;
         length = size;
         key = name;
-        this.deleted = false;
+        this.tombstone = false;
     }
 
 
@@ -45,7 +45,7 @@ public class Handle {
      *            is the deletion state
      */
     public void setDeleted(boolean state) {
-        this.deleted = state;
+        this.tombstone = state;
     }
 
 
@@ -54,6 +54,6 @@ public class Handle {
      * @return the state of deletion
      */
     public boolean getDeleted() {
-        return this.deleted;
+        return this.tombstone;
     }
 }

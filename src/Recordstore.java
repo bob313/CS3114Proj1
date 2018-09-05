@@ -32,9 +32,11 @@
 public class Recordstore {
     /**
      * @param args
-     *     Command line parameters
+     *            Command line parameters
      */
     public static void main(String[] args) {
-        new CommandProcessor(args[0], args[1], args[2]);
+        if (args != null && args.length == 3) {
+            new CommandProcessor(args[0], args[1], args[2]);
+        }
     }
 }
