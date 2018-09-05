@@ -5,8 +5,9 @@ import java.util.Scanner;
 /**
  * 
  * @author cdc97 bob313
- * 
- *         Processes command file and feeds instructions Hash and MemoryManager.
+ * @version 9.5.18
+ *          Processes command file and feeds instructions Hash and
+ *          MemoryManager.
  * 
  */
 
@@ -167,8 +168,8 @@ public class CommandProcessor {
                 + "| has been deleted from the Name database.");
         }
         else {
-            System.out.println("|" + name
-                + "| not deleted because it does not exist in the Name database.");
+            System.out.println("|" + name + "| not deleted because it does"
+                + " not exist in the Name database.");
         }
     }
 
