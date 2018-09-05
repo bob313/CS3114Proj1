@@ -32,8 +32,7 @@ public class CommandProcessor {
      * 
      */
 
-    public CommandProcessor(String memorySize, String hashSize, String file)
-    {
+    public CommandProcessor(String memorySize, String hashSize, String file) {
         hash = new Hash(Integer.valueOf(hashSize));
         manager = new MemoryManager(Integer.valueOf(memorySize));
         Scanner scan = null;
@@ -44,8 +43,7 @@ public class CommandProcessor {
             System.out.println("Comman File Not Found");
             e.printStackTrace();
         }
-        while (scan.hasNextLine())
-        {
+        while (scan.hasNextLine()) {
             processCommand(scan.nextLine());
         }
     }
@@ -63,23 +61,19 @@ public class CommandProcessor {
      * 
      */
     private boolean processCommand(String commandString) {
-        if (commandString.contains("update"))
-        {
+        if (commandString.contains("update")) {
             update(commandString);
             return true;
         }
-        if (commandString.contains("add"))
-        {
+        if (commandString.contains("add")) {
             add(commandString);
             return true;
         }
-        if (commandString.contains("delete"))
-        {
+        if (commandString.contains("delete")) {
             delete(commandString);
             return true;
         }
-        if (commandString.contains("print"))
-        {
+        if (commandString.contains("print")) {
             print(commandString);
             return true;
         }
@@ -89,16 +83,16 @@ public class CommandProcessor {
 
     /**
      * 
-     * Handles the
+     * Handles the update add command and update delete command
      * 
      * @param updateCommand
+     *            update command string
      * 
      */
     private void update(String updateCommand) {
         String updateShort = updateCommand.replace("update", "");
         // boolean check;
-        if (updateCommand.contains("add"))
-        {
+        if (updateCommand.contains("add")) {
             updateShort = updateShort.replace("add", "");
             updateShort = formatString(updateShort);
             String[] inputs = updateShort.split("<SEP>");
@@ -114,28 +108,38 @@ public class CommandProcessor {
         }
     }
 
+
+    /**
+     * handles the print commands
+     * 
+     * @param printCommand
+     *            print command string
+     */
     private void print(String printCommand) {
-        if (printCommand.contains("blocks"))
-        {
-            System.out.println(manager.getPoolSize()+": 0");
+        if (printCommand.contains("blocks")) {
+            System.out.println(manager.getPoolSize() + ": 0");
         }
         else {
             hash.print();
-            
+
         }
     }
 
 
-    private void add(String addCommand)
-    {
+    /**
+     * Handles the add command
+     * 
+     * @param addCommand
+     *            add command string
+     */
+    private void add(String addCommand) {
         String name;
         name = addCommand.replace("add", "");
         name = formatString(name);
         boolean check;
         Handle handle = manager.getHandle(name);
         check = hash.add(name, handle);
-        if (check)
-        {
+        if (check) {
             System.out.println("|" + name
                 + "| has been added to the Name database.");
         }
@@ -146,15 +150,19 @@ public class CommandProcessor {
     }
 
 
-    private void delete(String deleteCommand)
-    {
+    /**
+     * Handles the delete command
+     * 
+     * @param deleteCommand
+     *            delete command string
+     */
+    private void delete(String deleteCommand) {
         String name;
         name = deleteCommand.replace("delete", "");
         name = formatString(name);
         boolean check;
         check = hash.remove(name);
-        if (check)
-        {
+        if (check) {
             System.out.println("|" + name
                 + "| has been deleted from the Name database.");
         }
@@ -165,16 +173,20 @@ public class CommandProcessor {
     }
 
 
-    private String formatString(String nameString)
-    {
+    /**
+     * Formats input strings to remove excess spaces and command words (i.e.
+     * update, add, delete)
+     * 
+     * @param nameString
+     *            unformatted string
+     * @return formatted string
+     */
+    private String formatString(String nameString) {
         StringBuilder newString = new StringBuilder();
         char[] chars = nameString.toCharArray();
-        for (int i = 0; i < chars.length; i++)
-        {
-            if (!Character.isWhitespace(chars[i]))
-            {
-                while (i < chars.length && !Character.isWhitespace(chars[i]))
-                {
+        for (int i = 0; i < chars.length; i++) {
+            if (!Character.isWhitespace(chars[i])) {
+                while (i < chars.length && !Character.isWhitespace(chars[i])) {
                     newString.append(chars[i]);
                     i++;
                 }
