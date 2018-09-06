@@ -10,7 +10,9 @@ public class Handle {
     private String key;
     private boolean tombstone;
 
-    private String record; //delete
+    private String record; // delete
+
+
     /**
      * 
      * @param mem
@@ -56,14 +58,16 @@ public class Handle {
     public boolean getDeleted() {
         return this.tombstone;
     }
-    
+
+
     /**
      * @return the memory pool offset location
      */
     public int getMemPool() {
         return memPool;
     }
-    
+
+
     /**
      * @return the length of the record
      */
@@ -72,11 +76,22 @@ public class Handle {
     }
 
 
+    /**
+     * DELETE
+     * 
+     * @return the record
+     */
     public String getRecord() {
         return record;
     }
 
 
+    /**
+     * delete
+     * 
+     * @param record
+     *            is record to set
+     */
     public void setRecord(String record) {
         this.record = record;
     }

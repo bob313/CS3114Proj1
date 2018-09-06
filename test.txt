@@ -1,8 +1,9 @@
   print           hashtable
      add  Death Note
-print hashtable
-add   Death     Note    
-delete Death                     Note
+    update add   Death   Note<SEP>  Genre  <SEP> Animation
+    update add Death Note<SEP>Format<SEP>Series
+    update add Death Note<SEP>Genre<SEP>Anime
+    update delete Death Note<SEP>Genre
   print           hashtable
 
 

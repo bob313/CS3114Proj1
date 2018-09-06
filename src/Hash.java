@@ -167,8 +167,15 @@ public class Hash {
     private int probe(int i) {
         return i * i;
     }
-    
-    
+
+
+    /**
+     * Delete this method
+     * 
+     * @param key
+     *            is key to search
+     * @return the handle
+     */
     public Handle searchHandle(String key) {
         int home = h(key, hashtable.length); // Home position for K
         int pos = home; // Initial position is the

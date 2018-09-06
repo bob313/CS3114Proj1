@@ -97,36 +97,31 @@ public class CommandProcessor {
             this.updateAdd(updateName);
         }
         else {
-            updateName = updateName.replace("delete", "");
-            updateName = formatString(updateName);
-            String[] inputs = updateName.split("<SEP>");
-            Handle handle = hash.searchHandle(inputs[0]);
-            if (handle != null) {
-                String oldRecord = handle.getRecord();
-                String[] temp = oldRecord.split("<SEP>");
-                int foundKey = -1;
-                for (int i = 1; i < temp.length; i += 2) {
-                    if (temp[i].equals(inputs[1])) {
-                        foundKey = i;
-                        break;
-                    }
-                }
-            }
+            this.updateDelete(updateName);
         }
     }
 
+
+    /**
+     * add a field and value
+     * (if that field is not already part of the record),
+     * or else we will replace an existing value.
+     * 
+     * @param updateName
+     *            is the inputs to add
+     */
     private void updateAdd(String updateName) {
         updateName = updateName.replace("add", "");
         updateName = formatString(updateName);
         String[] inputs = updateName.split("<SEP>");
-        Handle handle = hash.searchHandle(inputs[0]);
+        Handle handle = hash.searchHandle(inputs[0].trim());
 
         if (handle != null) {
             String oldRecord = handle.getRecord();
             String[] temp = oldRecord.split("<SEP>");
             int foundKey = -1;
             for (int i = 1; i < temp.length; i += 2) {
-                if (temp[i].equals(inputs[1])) {
+                if (temp[i].equals(inputs[1].trim())) {
                     foundKey = i;
                     break;
                 }
@@ -136,13 +131,13 @@ public class CommandProcessor {
                 for (int i = 0; i < temp.length; i++) {
                     if (i != foundKey && i != foundKey + 1) {
                         newRecord = newRecord + temp[i];
-                        if (i < temp.length) {
-                            newRecord = newRecord + "<SEP>";
-                        }
+                        // if (i < temp.length) {
+                        newRecord = newRecord + "<SEP>";
+                        // }
                     }
                 }
-                newRecord = newRecord + "<SEP>" + inputs[1].trim() + "<SEP>"
-                    + inputs[2].trim();
+                newRecord = newRecord + inputs[1].trim() + "<SEP>" + inputs[2]
+                    .trim();
             }
             else {
                 newRecord = oldRecord + "<SEP>" + inputs[1].trim() + "<SEP>"
@@ -152,10 +147,53 @@ public class CommandProcessor {
             System.out.println("Updated Record: |" + newRecord + "|");
         }
         else {
-            System.out.println("|" + inputs[0]
-                + "| not updated because it does not exist.");
+            System.out.println("|" + inputs[0].trim()
+                + "| not updated because it does not "
+                + "exist in the Name database.");
         }
     }
+
+
+    /**
+     * remove that field name and its value from the
+     * record (if it exists)
+     * 
+     * @param updateName
+     *            is the input to remove
+     */
+    private void updateDelete(String updateName) {
+        updateName = updateName.replace("delete", "");
+        updateName = formatString(updateName);
+        String[] inputs = updateName.split("<SEP>");
+        Handle handle = hash.searchHandle(inputs[0].trim());
+        if (handle != null) {
+            String record = handle.getRecord();
+            String[] temp = record.split("<SEP>");
+            if (record.contains(inputs[1].trim())) {
+                int found = 0;
+                for (int i = 0; !temp[i].equals(inputs[1].trim()); i++) {
+                    found = i + 1;
+                }
+                found++;
+                String delete = "<SEP>" + inputs[1].trim() + "<SEP>"
+                    + temp[found];
+                record = record.replace(delete, "");
+                handle.setRecord(record);
+                System.out.println("Updated Record: |" + record + "|");
+            }
+            else {
+                System.out.println("|" + temp[0]
+                    + "| not updated because the field |" + inputs[1].trim()
+                    + "| does not exist");
+            }
+        }
+        else {
+            System.out.println("|" + inputs[0].trim()
+                + "| not updated because it does "
+                + "not exist in the Name database.");
+        }
+    }
+
 
     /**
      * handles the print commands
