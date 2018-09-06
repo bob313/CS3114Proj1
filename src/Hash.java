@@ -167,6 +167,25 @@ public class Hash {
     private int probe(int i) {
         return i * i;
     }
+    
+    
+    public Handle searchHandle(String key) {
+        int home = h(key, hashtable.length); // Home position for K
+        int pos = home; // Initial position is the
+                        // home slot
+        for (int i = 0; (null != (hashtable[pos]) && (!key.equals(hashtable[pos]
+            .key()))); i++) {
+            pos = (home + probe(i)) % hashtable.length; // Next on probe
+        } // sequence
+        if (hashtable[pos] == null) {
+            return null;
+        }
+        else if (!hashtable[pos].getDeleted() && key.equals((hashtable[pos])
+            .key())) { // Found it
+            return hashtable[pos];
+        }
+        return null; // K not in hash table
+    }
 
 
     /**

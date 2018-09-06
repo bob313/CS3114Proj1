@@ -1,11 +1,19 @@
 import student.TestCase;
 
-public class CommandProcessorTest extends TestCase{
-    CommandProcessor processor;
-    
-    public void testConstructor()
-    {
-        processor = new CommandProcessor("32", "10", "P1sampleInput.txt");
+/**
+ * 
+ * @author bob313 cdc97
+ * @version sep 5 2018
+ *
+ */
+public class CommandProcessorTest extends TestCase {
+
+    /**
+     * Tests the command processor
+     */
+    public void testConstructor() {
+        CommandProcessor processor = new CommandProcessor("32", "10",
+            "P1sampleInput.txt");
         int x = 8;
         assertEquals(x, 8);
     }

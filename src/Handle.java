@@ -10,7 +10,7 @@ public class Handle {
     private String key;
     private boolean tombstone;
 
-
+    private String record; //delete
     /**
      * 
      * @param mem
@@ -69,5 +69,15 @@ public class Handle {
      */
     public int getLength() {
         return length;
+    }
+
+
+    public String getRecord() {
+        return record;
+    }
+
+
+    public void setRecord(String record) {
+        this.record = record;
     }
 }

@@ -91,24 +91,71 @@ public class CommandProcessor {
      * 
      */
     private void update(String updateCommand) {
-        String updateShort = updateCommand.replace("update", "");
+        String updateName = updateCommand.replace("update", "");
         // boolean check;
         if (updateCommand.contains("add")) {
-            updateShort = updateShort.replace("add", "");
-            updateShort = formatString(updateShort);
-            String[] inputs = updateShort.split("<SEP>");
-            // check = hash.updateAdd(inputs[0], inputs[1], inputs[2]);
-            System.out.println("|" + inputs[0] + "| todo");
+            this.updateAdd(updateName);
         }
         else {
-            updateShort = updateShort.replace("delete", "");
-            updateShort = formatString(updateShort);
-            String[] inputs = updateShort.split("<SEP>");
-            // check = hash.updateDelete(inputs[0], inputs[1]);
-            System.out.println("|" + inputs[0] + "| todo");
+            updateName = updateName.replace("delete", "");
+            updateName = formatString(updateName);
+            String[] inputs = updateName.split("<SEP>");
+            Handle handle = hash.searchHandle(inputs[0]);
+            if (handle != null) {
+                String oldRecord = handle.getRecord();
+                String[] temp = oldRecord.split("<SEP>");
+                int foundKey = -1;
+                for (int i = 1; i < temp.length; i += 2) {
+                    if (temp[i].equals(inputs[1])) {
+                        foundKey = i;
+                        break;
+                    }
+                }
+            }
         }
     }
 
+    private void updateAdd(String updateName) {
+        updateName = updateName.replace("add", "");
+        updateName = formatString(updateName);
+        String[] inputs = updateName.split("<SEP>");
+        Handle handle = hash.searchHandle(inputs[0]);
+
+        if (handle != null) {
+            String oldRecord = handle.getRecord();
+            String[] temp = oldRecord.split("<SEP>");
+            int foundKey = -1;
+            for (int i = 1; i < temp.length; i += 2) {
+                if (temp[i].equals(inputs[1])) {
+                    foundKey = i;
+                    break;
+                }
+            }
+            String newRecord = "";
+            if (foundKey != -1) {
+                for (int i = 0; i < temp.length; i++) {
+                    if (i != foundKey && i != foundKey + 1) {
+                        newRecord = newRecord + temp[i];
+                        if (i < temp.length) {
+                            newRecord = newRecord + "<SEP>";
+                        }
+                    }
+                }
+                newRecord = newRecord + "<SEP>" + inputs[1].trim() + "<SEP>"
+                    + inputs[2].trim();
+            }
+            else {
+                newRecord = oldRecord + "<SEP>" + inputs[1].trim() + "<SEP>"
+                    + inputs[2].trim();
+            }
+            handle.setRecord(newRecord);
+            System.out.println("Updated Record: |" + newRecord + "|");
+        }
+        else {
+            System.out.println("|" + inputs[0]
+                + "| not updated because it does not exist.");
+        }
+    }
 
     /**
      * handles the print commands
@@ -139,6 +186,7 @@ public class CommandProcessor {
         name = formatString(name);
         boolean check;
         Handle handle = manager.getHandle(name);
+        handle.setRecord(name); // for delete
         check = hash.add(name, handle);
         if (check) {
             System.out.println("|" + name
