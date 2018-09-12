@@ -1,3 +1,5 @@
+
+
 /**
  * 
  * @author bob313 cdc97
@@ -8,6 +10,7 @@ public class MemoryManager {
 
     // Constructor. poolsize defines the size of the memory pool in bytes
     private int poolSize;
+    private LinkedList<FreeBlock> free;
 
 
     /**
@@ -17,7 +20,9 @@ public class MemoryManager {
      */
     public MemoryManager(int poolsize) {
         poolSize = poolsize;
-
+        free = new LinkedList<FreeBlock>();
+        FreeBlock size = new FreeBlock(poolsize);
+        free.add(size);
     }
 
 

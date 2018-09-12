@@ -283,4 +283,14 @@ public class CommandProcessor {
         newString.deleteCharAt(newString.length() - 1);
         return newString.toString();
     }
+
+
+    /**
+     * gets the Hash of commandP
+     * 
+     * @return CommandP's hash
+     */
+    public Hash getHash() {
+        return hash;
+    }
 }
