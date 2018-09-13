@@ -304,4 +304,49 @@ public class MemoryManager {
     public LinkedList<FreeBlock> getBlockList() {
         return free;
     }
+    
+    
+    /**
+     * Sorts outer lists of the free block list by size
+     * and the inner lists by location. Both are least to greatest.
+     */
+    private void sortFreeList() {
+        for (int i = 0; i < free.size(); i++) {
+            for (int j = i; j > 0; j--) {
+                if (free.get(j).getSize() > free.get(j - 1).getSize()) {
+                    FreeBlock holder1 = free.get(j);
+                    FreeBlock holder2 = free.get(j - 1);
+                    free.remove(j);
+                    free.add(j - 1, holder1);
+                    free.remove(j - 1);
+                    free.add(j, holder2);
+
+                }
+            }
+        }
+        sortInternalLists();
+    }
+
+
+    /**
+     * Sorts the internal lists of the free block list.
+     */
+    private void sortInternalLists() {
+        for (int i = 0; i < free.size(); i++) {
+            for (int j = 0; j < free.get(i).getList().size(); j++) {
+                for (int k = j; k > 0; k--) {
+                    if (free.get(i).getList().get(k) > free.get(i).getList()
+                        .get(k - 1)) {
+                        Integer holder1 = free.get(i).getList().get(k);
+                        Integer holder2 = free.get(i).getList().get(k - 1);
+                        free.get(i).getList().remove(k);
+                        free.get(i).getList().add(k - 1, holder1);
+                        free.get(i).getList().remove(k - 1);
+                        free.get(i).getList().add(k, holder2);
+                    }
+
+                }
+            }
+        }
+    }
 }
