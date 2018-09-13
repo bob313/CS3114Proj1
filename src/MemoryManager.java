@@ -256,7 +256,8 @@ public class MemoryManager {
         for (int i = 0; i < Handle.getLength(); i++) {
             record[i] = memoryPool[Handle.getMemPool() + i];
         }
-        return record.toString();
+        String str = new String(record);
+        return str;
     }
 
 

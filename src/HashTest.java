@@ -73,8 +73,8 @@ public class HashTest extends TestCase {
         myHash.add("fourth", fourth);
         myHash.remove("first");
         myHash.remove("second");
-        assertEquals(myHash.search("fourth"), true);
-        assertEquals(myHash.search("first"), false);
+        assertEquals(myHash.searchHandle("fourth"), fourth);
+        assertNull(myHash.searchHandle("first"));
         myHash.print();
     }
 
@@ -108,17 +108,17 @@ public class HashTest extends TestCase {
     }
     
     /**
-     * tests the search method
+     * tests the searchHandle method
      */
-    public void testsearch() {
+    public void testsearchHandle() {
         Hash myHash = new Hash(4);
         Handle first = new Handle(4, 4, "first");
         Handle fourth = new Handle(4, 4, "fourth");
         myHash.add("first", first);
         myHash.add("fourth", fourth);
-        assertEquals(myHash.search("first"), true);
-        assertEquals(myHash.search("fourth"), true);
-        assertEquals(myHash.search("second"), false);
+        assertEquals(myHash.searchHandle("first"), first);
+        assertEquals(myHash.searchHandle("fourth"), fourth);
+        assertNull(myHash.searchHandle("second"));
     }
 
 

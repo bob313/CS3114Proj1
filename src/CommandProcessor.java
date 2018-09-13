@@ -143,6 +143,7 @@ public class CommandProcessor {
             }
             hash.remove(inputs[0]);
             byte[] record = newRecord.getBytes();
+            manager.remove(handle);
             Handle newHandle = manager.insert(record, record.length, inputs[0]);
             hash.add(inputs[0], newHandle);
             System.out.println("Updated Record: |" + newRecord + "|");
@@ -181,6 +182,7 @@ public class CommandProcessor {
                 record = record.replace(delete, "");
                 hash.remove(inputs[0]);
                 byte[] newRecord = record.getBytes();
+                manager.remove(handle);
                 Handle newHandle = manager.insert(newRecord, newRecord.length, inputs[0]);
                 hash.add(inputs[0], newHandle);
                 System.out.println("Updated Record: |" + record + "|");
@@ -235,6 +237,7 @@ public class CommandProcessor {
                 + "| has been added to the Name database.");
         }
         else {
+            manager.remove(handle);
             System.out.println("|" + name
                 + "| duplicates a record already in the Name database.");
         }
@@ -251,9 +254,10 @@ public class CommandProcessor {
         String name;
         name = deleteCommand.replace("delete", "");
         name = formatString(name);
-        boolean check;
-        check = hash.remove(name);
+        Handle handle = hash.searchHandle(name);
+        boolean check = hash.remove(name);
         if (check) {
+            manager.remove(handle);
             System.out.println("|" + name
                 + "| has been deleted from the Name database.");
         }

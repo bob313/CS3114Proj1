@@ -126,7 +126,7 @@ public class Hash {
      *            is the key to search for
      * @return true if key was found
      */
-    public boolean search(String key) {
+    private boolean search(String key) {
         int home = h(key, hashtable.length); // Home position for K
         int pos = home; // Initial position is the
                         // home slot
