@@ -115,6 +115,7 @@ public class MemoryManager {
             newPool[i] = memoryPool[i];
         }
         memoryPool = newPool;
+        System.out.println("Memory pool expanded to be " + poolSize + " bytes.");
     }
 
     /**
@@ -213,20 +214,25 @@ public class MemoryManager {
         }
     }
 
-    // Return the record with handle posHandle, up to size bytes, by
-
-    // copying it into space.
-
-    // Return the number of bytes actually copied into space.
-
-// public int get(byte[] space, Handle theHandle, int size);
-    
-    
-
-    // Dump a printout of the freeblock list
-
+    /**
+     * Dump a printout of the freeblock list
+     */
     public void dump() {
-        
+        if (free.isEmpty()) {
+            System.out.println("No free blocks are available.");
+        } else {
+            for (int i = 0; i < free.size(); i++)
+            {
+                StringBuilder builder = new StringBuilder();
+                builder.append(free.get(i).getSize());
+                builder.append(":");
+                for (int j = 0; j < free.get(i).getList().size(); i++) {
+                    builder.append(" ");
+                    builder.append(free.get(i).getList().get(j));
+                }
+                System.out.println(builder.toString());
+            }
+        }
     }
 
 }
