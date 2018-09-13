@@ -32,7 +32,6 @@ public class CommandProcessor {
      *            processed
      * 
      */
-
     public CommandProcessor(String memorySize, String hashSize, String file) {
         hash = new Hash(Integer.valueOf(hashSize));
         manager = new MemoryManager(Integer.valueOf(memorySize));
@@ -62,19 +61,20 @@ public class CommandProcessor {
      * 
      */
     private boolean processCommand(String commandString) {
-        if (commandString.contains("update")) {
+        String[] inputs = commandString.trim().split("\\s+");
+        if (inputs[0].equals("update")) {
             update(commandString);
             return true;
         }
-        if (commandString.contains("add")) {
+        if (inputs[0].equals("add")) {
             add(commandString);
             return true;
         }
-        if (commandString.contains("delete")) {
+        if (inputs[0].equals("delete")) {
             delete(commandString);
             return true;
         }
-        if (commandString.contains("print")) {
+        if (inputs[0].equals("print")) {
             print(commandString);
             return true;
         }
@@ -91,9 +91,10 @@ public class CommandProcessor {
      * 
      */
     private void update(String updateCommand) {
-        String updateName = updateCommand.replace("update", "");
+        String updateName = updateCommand.replaceFirst("update", "");
         // boolean check;
-        if (updateCommand.contains("add")) {
+        String[] inputs = updateName.trim().split("\\s+");
+        if (inputs[0].equals("add")) {
             this.updateAdd(updateName);
         }
         else {
@@ -111,12 +112,12 @@ public class CommandProcessor {
      *            is the inputs to add
      */
     private void updateAdd(String updateName) {
-        updateName = updateName.replace("add", "");
+        updateName = updateName.replaceFirst("add", "");
         updateName = formatString(updateName);
         String[] inputs = updateName.split("<SEP>");
         Handle handle = hash.searchHandle(inputs[0].trim());
 
-        if (handle != null) {
+        if (handle != null && inputs.length > 1) {
             String oldRecord = manager.getRecord(handle);
             String[] temp = oldRecord.split("<SEP>");
             int foundKey = -1;
@@ -164,11 +165,11 @@ public class CommandProcessor {
      *            is the input to remove
      */
     private void updateDelete(String updateName) {
-        updateName = updateName.replace("delete", "");
+        updateName = updateName.replaceFirst("delete", "");
         updateName = formatString(updateName);
         String[] inputs = updateName.split("<SEP>");
         Handle handle = hash.searchHandle(inputs[0].trim());
-        if (handle != null) {
+        if (handle != null && inputs.length > 1) {
             String record = manager.getRecord(handle);
             String[] temp = record.split("<SEP>");
             if (record.contains(inputs[1].trim())) {
@@ -183,7 +184,8 @@ public class CommandProcessor {
                 hash.remove(inputs[0]);
                 byte[] newRecord = record.getBytes();
                 manager.remove(handle);
-                Handle newHandle = manager.insert(newRecord, newRecord.length, inputs[0]);
+                Handle newHandle = manager.insert(newRecord, newRecord.length,
+                    inputs[0]);
                 hash.add(inputs[0], newHandle);
                 System.out.println("Updated Record: |" + record + "|");
             }
@@ -226,7 +228,7 @@ public class CommandProcessor {
      */
     private void add(String addCommand) {
         String name;
-        name = addCommand.replace("add", "");
+        name = addCommand.replaceFirst("add", "");
         name = formatString(name);
         byte[] record = name.getBytes();
         boolean check;
@@ -252,7 +254,7 @@ public class CommandProcessor {
      */
     private void delete(String deleteCommand) {
         String name;
-        name = deleteCommand.replace("delete", "");
+        name = deleteCommand.replaceFirst("delete", "");
         name = formatString(name);
         Handle handle = hash.searchHandle(name);
         boolean check = hash.remove(name);

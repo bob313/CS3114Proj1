@@ -15,6 +15,8 @@ public class CommandProcessorTest extends TestCase {
         CommandProcessor processor = new CommandProcessor("32", "10",
             "P1sampleInput.txt");
         assertNotNull(processor.getHash());
+        processor = new CommandProcessor("256", "10", "Piazzatrial.txt");
+        assertNotNull(processor.getHash());
     }
 
 }

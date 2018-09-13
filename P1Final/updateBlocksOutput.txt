@@ -1,0 +1,23 @@
+|Bug's life| has been added to the Name database.
+|Attack on Titans| has been added to the Name database.
+|Aladdin| has been added to the Name database.
+|Sindbad| has been added to the Name database.
+16: 48
+64: 64
+128: 128
+Updated Record: |Aladdin<SEP>Genre<SEP>Cartoon|
+Updated Record: |Aladdin<SEP>Genre<SEP>Cartoon<SEP>length<SEP>90:00|
+Updated Record: |Attack on Titans<SEP>Format<SEP>series|
+Updated Record: |Attack on Titans<SEP>Format<SEP>series<SEP>length<SEP>90:00|
+Updated Record: |Attack on Titans<SEP>Format<SEP>series<SEP>length<SEP>90:00|
+Updated Record: |Attack on Titans<SEP>Format<SEP>series<SEP>length<SEP>90:00<SEP>Genre<SEP>series|
+8: 32
+16: 16 48
+Updated Record: |Aladdin<SEP>Genre<SEP>Cartoon|
+Updated Record: |Bug's life<SEP>cast<SEP>ants|
+8: 32
+16: 48
+32: 96
+|Animals united| has been added to the Name database.
+Updated Record: |Aladdin|
+64: 64

@@ -1,0 +1,59 @@
+Total records: 0
+32: 0
+|the best we can do| has been added to the Name database.
+|nothing| not deleted because it does not exist in the Name database.
+Memory pool expanded to be 64 bytes.
+|the best we can do again| has been added to the Name database.
+|the best we can do again| duplicates a record already in the Name database.
+Memory pool expanded to be 128 bytes.
+|stop or my mom will shoot| has been added to the Name database.
+|the simpsons| has been added to the Name database.
+Memory pool expanded to be 256 bytes.
+|stop or my dog will shoot| has been added to the Name database.
+|Tom and Jerry| has been added to the Name database.
+|Bug's life| has been added to the Name database.
+|Attack on Titans| has been added to the Name database.
+Name hash table size doubled to 32 slots.
+|Aladdin| has been added to the Name database.
+|stop or my dog will shoot| has been deleted from the Name database.
+|Sindbad| has been added to the Name database.
+Updated Record: |Sindbad<SEP>Genre<SEP>Film|
+|Aladin| not updated because it does not exist in the Name database.
+Updated Record: |Aladdin<SEP>Actors<SEP>Alaa Jasmine and the Gennie|
+Memory pool expanded to be 512 bytes.
+Updated Record: |Aladdin<SEP>Actors<SEP>Alaa Jasmine and the Gennie<SEP>Cast<SEP>Alaa Jasmine and the Gennie|
+Updated Record: |Aladdin<SEP>Cast<SEP>Alaa Jasmine and the Gennie|
+Updated Record: |Aladdin<SEP>Cast<SEP>Alaa Jasmine and the Gennie<SEP>movie length<SEP>120:00|
+Updated Record: |the best we can do<SEP>G<SEP>4|
+Updated Record: |the best we can do<SEP>G<SEP>4|
+|The Boss Baby| has been added to the Name database.
+|finding Dory| has been added to the Name database.
+Updated Record: |the simpsons<SEP>feeling<SEP>crazy lol|
+|One piece| not updated because it does not exist in the Name database.
+|One piece| has been added to the Name database.
+Updated Record: |One piece<SEP>feeling<SEP>Excited|
+16: 96 
+32: 224
+Memory pool expanded to be 1024 bytes.
+|very long long long long long long long long record well not very long as I expected| has been added to the Name database.
+|short| has been added to the Name database.
+|stop or my dog will shoot| not updated because it does not exist in the Name database.
+8: 104 
+32: 224
+128: 640
+256: 768
+|stop or my mom will shoot| 0
+|the best we can do again| 4
+|Aladdin| 5
+|Attack on Titans| 6
+|short| 7
+|One piece| 8
+|The Boss Baby| 15
+|finding Dory| 19
+|Sindbad| 21
+|Tom and Jerry| 24
+|the simpsons| 26
+|Bug's life| 27
+|the best we can do| 29
+|very long long long long long long long long record well not very long as I expected| 30
+Total records: 14

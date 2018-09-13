@@ -1,0 +1,14 @@
+Total records: 0
+|Case closed| has been added to the Name database.
+|Toy Story| has been added to the Name database.
+32: 32
+|One Piece| has been added to the Name database.
+|One Piece| has been deleted from the Name database.
+|Case closed III| has been added to the Name database.
+|Toy Story II| has been added to the Name database.
+No free blocks are available.
+|Toy Story| 0
+|Toy Story II| 1
+|Case closed| 6
+|Case closed III| 7
+Total records: 4

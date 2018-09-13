@@ -1,0 +1,25 @@
+Total records: 0
+32: 0
+|x| has been added to the Name database.
+1: 1
+2: 2
+4: 4
+8: 8
+16: 16
+|y| has been added to the Name database.
+|z| has been added to the Name database.
+|good news| has been added to the Name database.
+|x| has been deleted from the Name database.
+|y| has been deleted from the Name database.
+|xy| has been added to the Name database.
+1: 3
+4: 4
+8: 8
+|x| has been added to the Name database.
+|y| has been added to the Name database.
+|z| has been deleted from the Name database.
+|y| has been deleted from the Name database.
+|zy| has been added to the Name database.
+1: 2
+2: 6
+8: 8

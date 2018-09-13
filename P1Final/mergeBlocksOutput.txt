@@ -1,0 +1,18 @@
+Total records: 0
+128: 0
+|the best we can do| has been added to the Name database.
+|the best we can do again| has been added to the Name database.
+64: 64
+|xyz movie| has been added to the Name database.
+Updated Record: |xyz movie<SEP>category<SEP>crab|
+|how to train your dragon| has been added to the Name database.
+|the best we can do again| has been deleted from the Name database.
+Updated Record: |xyz movie|
+16: 48
+32: 64
+|xyz movie| has been deleted from the Name database.
+|the best we can do| has been deleted from the Name database.
+32: 64
+64: 0
+|how to train your dragons to eat your neighbour's Pizza| has been added to the Name database.
+32: 64
