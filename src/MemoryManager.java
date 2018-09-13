@@ -61,6 +61,7 @@ public class MemoryManager {
         }
         removeFreeBlock(blockSize, blockLocation);
         Handle handle = new Handle(blockLocation, size, name);
+        sortFreeList();
         return handle;
     }
 
@@ -227,6 +228,7 @@ public class MemoryManager {
         }
         addFreeBlock(blockSize, location);
         mergeBlocks();
+        sortFreeList();
     }
 
 
