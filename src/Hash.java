@@ -107,8 +107,8 @@ public class Hash {
         if (search(key)) {
             int home = h(key, hashtable.length);
             int pos = home; // Initial position is the home slot
-            for (int i = 0; (null != (hashtable[pos]) && (!key.equals(
-                hashtable[pos].key()))); i++) {
+            for (int i = 0; (!key.equals(
+                hashtable[pos].key())); i++) {
                 pos = (home + probe(i)) % hashtable.length; // Next on probe
             } // sequence
             hashtable[pos].setDeleted(true);

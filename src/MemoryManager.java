@@ -219,7 +219,7 @@ public class MemoryManager {
                     removeFreeBlock(size, loc + size);
                     removeFreeBlock(size, loc);
                 } else if (loc - size == free.get(i).getList().get(count+1)) {
-                    addFreeBlock(size*2, loc);
+                    addFreeBlock(size*2, loc-size);
                     removeFreeBlock(size, loc - size);
                     removeFreeBlock(size, loc);
                 }

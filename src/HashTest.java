@@ -118,6 +118,8 @@ public class HashTest extends TestCase {
         myHash.add("fourth", fourth);
         assertEquals(myHash.searchHandle("first"), first);
         assertEquals(myHash.searchHandle("fourth"), fourth);
+        myHash.remove("fourth");
+        assertNull(myHash.searchHandle("fourth"));
         assertNull(myHash.searchHandle("second"));
     }
 
