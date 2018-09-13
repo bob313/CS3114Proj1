@@ -19,13 +19,13 @@ public class MemoryManagerTest extends TestCase {
         manager.dump();
         
         String input2 = "Christian";
-        Handle testHandle2 = manager.insert(input2.getBytes(), input2.getBytes().length, input2);
+        manager.insert(input2.getBytes(), input2.getBytes().length, input2);
         assertEquals(1, manager.getBlockList().size());
         manager.dump();
         
         String input3 = "A really long string";
-        Handle testHandle3 = manager.insert(input3.getBytes(), input3.getBytes().length, input3);
-        assertEquals(2, manager.getBlockList().size());
+        manager.insert(input3.getBytes(), input3.getBytes().length, input3);
+        assertEquals(1, manager.getBlockList().size());
         manager.dump();
     }
 
@@ -57,6 +57,8 @@ public class MemoryManagerTest extends TestCase {
             .getBytes().length, input);
         manager.remove(testHandle);
         assertEquals(32, manager.getBlockList().get(0).getSize());
+        String inputA = "Another rally long String";
+        manager.insert(inputA.getBytes(), inputA.getBytes().length, inputA);
         
         manager2 = new MemoryManager(32);
         String input2 = "Christian";
@@ -69,6 +71,23 @@ public class MemoryManagerTest extends TestCase {
         assertEquals(16, manager2.getBlockList().get(0).getSize());
         manager2.remove(testHandle3);
         assertEquals(32, manager2.getBlockList().get(0).getSize());
+        
+        
+        
+        MemoryManager manager3= new MemoryManager(32);
+        String dk = "Death Note<SEP>Genre<SEP>Anime";
+        Handle dkHandle = manager3.insert(dk.getBytes(), dk.getBytes().length, dk);
+        String CYH = "Can You Handle?";
+        manager3.insert(CYH.getBytes(), CYH.getBytes().length, CYH);
+        String ATest = "Another Test";
+        Handle ATestHandle = manager3.insert(ATest.getBytes(), ATest.getBytes().length, ATest);
+        manager3.remove(dkHandle);
+        String dn = "Death Note";
+        manager3.insert(dn.getBytes(), dn.getBytes().length, dn);
+        manager3.remove(ATestHandle);
+        manager3.dump();
+        assertEquals(2, manager3.getBlockList().get(0).getList().size());
+        
     }
 
     
