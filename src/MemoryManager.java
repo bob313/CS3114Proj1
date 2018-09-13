@@ -16,14 +16,14 @@ public class MemoryManager {
      *            is the size of the memory pool
      */
     public MemoryManager(int poolsize) {
-        if (poolsize == 0) {
+        if (poolsize <= 0) {
             poolSize = 1;
         } else {
             poolSize = poolsize;
         }
-        memoryPool = new byte[poolsize];
+        memoryPool = new byte[poolSize];
         free = new LinkedList<>();
-        FreeBlock size = new FreeBlock(poolsize);
+        FreeBlock size = new FreeBlock(poolSize);
         size.getList().add(0);
         free.add(size);
     
@@ -103,7 +103,7 @@ public class MemoryManager {
             resizeBlock(blocks, blockSize);
         } else {
             expandMemoryPool();
-            findBlockLocation(blockSize);
+            blockLocation = findBlockLocation(blockSize);
         }
         
         return blockLocation;
@@ -122,6 +122,7 @@ public class MemoryManager {
             newPool[i] = memoryPool[i];
         }
         memoryPool = newPool;
+        mergeBlocks();
         System.out.println("Memory pool expanded to be " + poolSize + " bytes.");
     }
 
@@ -211,7 +212,7 @@ public class MemoryManager {
     private void mergeBlocks() {
         for (int i = 0; i < free.size(); i++) {
             int count = 0;
-            while (free.get(i).getList().size() > 1 && count < free.get(i).getList().size()) {
+            while (free.get(i).getList().size() > 1 && count < (free.get(i).getList().size() - 1)) {
                 int size = free.get(i).getSize();
                 int loc = free.get(i).getList().get(count);
                 if (loc + size == free.get(i).getList().get(count+1)) {
@@ -219,7 +220,7 @@ public class MemoryManager {
                     removeFreeBlock(size, loc + size);
                     removeFreeBlock(size, loc);
                 } else if (loc - size == free.get(i).getList().get(count+1)) {
-                    addFreeBlock(size*2, loc-size);
+                    addFreeBlock(size*2, loc - size);
                     removeFreeBlock(size, loc - size);
                     removeFreeBlock(size, loc);
                 }
