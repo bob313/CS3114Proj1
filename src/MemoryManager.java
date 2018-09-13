@@ -47,12 +47,13 @@ public class MemoryManager {
         int blockSize = findBlockSize(size);
         int blockLocation = findBlockLocation(blockSize);
         for (int i = 0; i < size; i++) {
-            memoryPool[blockLocation] = space[i];
+            memoryPool[blockLocation + i] = space[i];
         }
         removeFreeBlock(blockSize, blockLocation);
         Handle handle = new Handle(blockLocation, size, name);
         return handle;
     }
+    
     
     /**
      * Finds the correct block size given a record size
@@ -86,6 +87,8 @@ public class MemoryManager {
                 if (free.get(j).getSize() == i)
                 {
                     blocks = free.get(j);
+                    j = free.size();
+                    i = poolSize + 1;
                 }
             }
         }
@@ -130,6 +133,7 @@ public class MemoryManager {
         {
             removeFreeBlock(blockSize, blockLocation);
             blockSize = blockSize / 2;
+            addFreeBlock(blockSize, blockLocation);
             addFreeBlock(blockSize, blockLocation + blockSize);
         }
     }
@@ -162,7 +166,8 @@ public class MemoryManager {
     private void removeFreeBlock(int size, int location) {
         for (int i = 0; i < free.size(); i++) {
             if (free.get(i).getSize() == size) {
-                free.get(i).getList().remove(location);
+                Integer removed = location;
+                free.get(i).getList().remove(removed);
                 if (free.get(i).getList().isEmpty()) {
                     free.remove(i);
                 }
