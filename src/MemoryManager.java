@@ -18,9 +18,10 @@ public class MemoryManager {
     public MemoryManager(int poolsize) {
         poolSize = poolsize;
         memoryPool = new byte[poolsize];
+        free = new LinkedList<>();
         FreeBlock size = new FreeBlock(poolsize);
+        size.getList().add(0);
         free.add(size);
-        free.get(0).getList().add(0);
     
     }
 
@@ -93,8 +94,7 @@ public class MemoryManager {
             blockLocation = blocks.getList().get(0);
             if (blocks.getSize() > blockSize)
             resizeBlock(blocks, blockSize);
-        }
-        else {
+        } else {
             expandMemoryPool();
             findBlockLocation(blockSize);
         }
@@ -226,7 +226,7 @@ public class MemoryManager {
                 StringBuilder builder = new StringBuilder();
                 builder.append(free.get(i).getSize());
                 builder.append(":");
-                for (int j = 0; j < free.get(i).getList().size(); i++) {
+                for (int j = 0; j < free.get(i).getList().size(); j++) {
                     builder.append(" ");
                     builder.append(free.get(i).getList().get(j));
                 }
@@ -235,4 +235,11 @@ public class MemoryManager {
         }
     }
 
+    /**
+     * gets the free block list for testing purposes
+     * @return the free block list
+     */
+    public LinkedList<FreeBlock> getBlockList() {
+        return free;
+    }
 }
