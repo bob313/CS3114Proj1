@@ -41,7 +41,7 @@ public class CommandProcessor {
             scan = new Scanner(new File(file));
         }
         catch (FileNotFoundException e) {
-            System.out.println("Comman File Not Found");
+            System.out.println("Command File Not Found");
             e.printStackTrace();
         }
         while (scan.hasNextLine()) {
@@ -117,7 +117,7 @@ public class CommandProcessor {
         Handle handle = hash.searchHandle(inputs[0].trim());
 
         if (handle != null) {
-            String oldRecord = handle.getRecord();
+            String oldRecord = manager.getRecord(handle);
             String[] temp = oldRecord.split("<SEP>");
             int foundKey = -1;
             for (int i = 1; i < temp.length; i += 2) {
@@ -131,9 +131,7 @@ public class CommandProcessor {
                 for (int i = 0; i < temp.length; i++) {
                     if (i != foundKey && i != foundKey + 1) {
                         newRecord = newRecord + temp[i];
-                        // if (i < temp.length) {
                         newRecord = newRecord + "<SEP>";
-                        // }
                     }
                 }
                 newRecord = newRecord + inputs[1].trim() + "<SEP>" + inputs[2]
@@ -143,7 +141,10 @@ public class CommandProcessor {
                 newRecord = oldRecord + "<SEP>" + inputs[1].trim() + "<SEP>"
                     + inputs[2].trim();
             }
-            handle.setRecord(newRecord);
+            hash.remove(inputs[0]);
+            byte[] record = newRecord.getBytes();
+            Handle newHandle = manager.insert(record, record.length, inputs[0]);
+            hash.add(inputs[0], newHandle);
             System.out.println("Updated Record: |" + newRecord + "|");
         }
         else {
@@ -167,7 +168,7 @@ public class CommandProcessor {
         String[] inputs = updateName.split("<SEP>");
         Handle handle = hash.searchHandle(inputs[0].trim());
         if (handle != null) {
-            String record = handle.getRecord();
+            String record = manager.getRecord(handle);
             String[] temp = record.split("<SEP>");
             if (record.contains(inputs[1].trim())) {
                 int found = 0;
@@ -178,7 +179,10 @@ public class CommandProcessor {
                 String delete = "<SEP>" + inputs[1].trim() + "<SEP>"
                     + temp[found];
                 record = record.replace(delete, "");
-                handle.setRecord(record);
+                hash.remove(inputs[0]);
+                byte[] newRecord = record.getBytes();
+                Handle newHandle = manager.insert(newRecord, newRecord.length, inputs[0]);
+                hash.add(inputs[0], newHandle);
                 System.out.println("Updated Record: |" + record + "|");
             }
             else {
@@ -203,7 +207,7 @@ public class CommandProcessor {
      */
     private void print(String printCommand) {
         if (printCommand.contains("blocks")) {
-            System.out.println(manager.getPoolSize() + ": 0");
+            manager.dump();
         }
         else {
             hash.print();
@@ -222,9 +226,9 @@ public class CommandProcessor {
         String name;
         name = addCommand.replace("add", "");
         name = formatString(name);
+        byte[] record = name.getBytes();
         boolean check;
-        Handle handle = manager.getHandle(name);
-        handle.setRecord(name); // for delete
+        Handle handle = manager.insert(record, record.length, name);
         check = hash.add(name, handle);
         if (check) {
             System.out.println("|" + name
