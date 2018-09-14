@@ -165,7 +165,7 @@ public class MemoryManager {
      *            location value of the block being added
      * @return true if block is added.
      */
-    public boolean addFreeBlock(int size, int location) {
+    private boolean addFreeBlock(int size, int location) {
         for (int i = 0; i < free.size(); i++) {
             if (free.get(i).getSize() == size) {
                 free.get(i).getList().add(location);
@@ -227,6 +227,7 @@ public class MemoryManager {
             memoryPool[i] = tempBytes[i - location];
         }
         addFreeBlock(blockSize, location);
+        sortFreeList();
         mergeBlocks();
         sortFreeList();
     }
@@ -317,10 +318,9 @@ public class MemoryManager {
         while (free.size() > 0) {
             FreeBlock min = free.get(0);
             for (int j = 0; j < free.size(); j++) {
+                sortInternalList(free.get(j));
                 if (free.get(j).getSize() < min.getSize()) {
                     min = free.get(j);
-                    
-                    sortInternalList(free.get(j));
                 }
             }
             free.remove(min);
