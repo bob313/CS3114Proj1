@@ -25,10 +25,11 @@ public class MemoryManager {
             poolSize = poolsize;
         }
         memoryPool = new byte[poolSize];
-        free = new LinkedList<FreeBlock>();
+        free = new LinkedList<>();
         FreeBlock size = new FreeBlock(poolSize);
         size.getList().add(0);
         free.add(size);
+
     }
 
 
@@ -60,7 +61,7 @@ public class MemoryManager {
         }
         removeFreeBlock(blockSize, blockLocation);
         Handle handle = new Handle(blockLocation, size, name);
-      //  sortFreeList();
+        sortFreeList();
         return handle;
     }
 
@@ -164,7 +165,7 @@ public class MemoryManager {
      *            location value of the block being added
      * @return true if block is added.
      */
-    private boolean addFreeBlock(int size, int location) {
+    public boolean addFreeBlock(int size, int location) {
         for (int i = 0; i < free.size(); i++) {
             if (free.get(i).getSize() == size) {
                 free.get(i).getList().add(location);
@@ -227,7 +228,7 @@ public class MemoryManager {
         }
         addFreeBlock(blockSize, location);
         mergeBlocks();
-       // sortFreeList();
+        sortFreeList();
     }
 
 
@@ -311,43 +312,42 @@ public class MemoryManager {
      * Sorts outer lists of the free block list by size
      * and the inner lists by location. Both are least to greatest.
      */
-    private void sortFreeList() {
-        for (int i = 0; i < free.size(); i++) {
-            for (int j = i; j > 0; j--) {
-                if (free.get(j).getSize() > free.get(j - 1).getSize()) {
-                    FreeBlock holder1 = free.get(j);
-                    FreeBlock holder2 = free.get(j - 1);
-                    free.remove(j);
-                    free.add(j - 1, holder1);
-                    free.remove(j - 1);
-                    free.add(j, holder2);
-
+    public void sortFreeList() {
+        LinkedList<FreeBlock> temp = new LinkedList<>();
+        while (free.size() > 0) {
+            FreeBlock min = free.get(0);
+            for (int j = 0; j < free.size(); j++) {
+                if (free.get(j).getSize() < min.getSize()) {
+                    min = free.get(j);
+                    
+                    sortInternalList(free.get(j));
                 }
             }
+            free.remove(min);
+            temp.add(min);
         }
-        sortInternalLists();
+        free = temp;
+        
     }
 
 
     /**
      * Sorts the internal lists of the free block list.
      */
-    private void sortInternalLists() {
-        for (int i = 0; i < free.size(); i++) {
-            for (int j = 0; j < free.get(i).getList().size(); j++) {
-                for (int k = j; k > 0; k--) {
-                    if (free.get(i).getList().get(k) > free.get(i).getList()
-                        .get(k - 1)) {
-                        Integer holder1 = free.get(i).getList().get(k);
-                        Integer holder2 = free.get(i).getList().get(k - 1);
-                        free.get(i).getList().remove(k);
-                        free.get(i).getList().add(k - 1, holder1);
-                        free.get(i).getList().remove(k - 1);
-                        free.get(i).getList().add(k, holder2);
-                    }
-
+    private void sortInternalList(FreeBlock block) {
+        LinkedList<Integer> temp = new LinkedList<>();
+        while (block.getList().size() > 0)
+        {
+            Integer min = block.getList().get(0);
+            for (int j = 0; j < block.getList().size(); j++) {
+                if (block.getList().get(j) < min) {
+                    min = block.getList().get(j);
+                    
                 }
             }
+            block.getList().remove(min);
+            temp.add(min);
         }
+        block.setList(temp);
     }
 }
