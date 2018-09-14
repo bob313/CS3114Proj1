@@ -25,11 +25,10 @@ public class MemoryManager {
             poolSize = poolsize;
         }
         memoryPool = new byte[poolSize];
-        free = new LinkedList<>();
+        free = new LinkedList<FreeBlock>();
         FreeBlock size = new FreeBlock(poolSize);
         size.getList().add(0);
         free.add(size);
-
     }
 
 
@@ -61,7 +60,7 @@ public class MemoryManager {
         }
         removeFreeBlock(blockSize, blockLocation);
         Handle handle = new Handle(blockLocation, size, name);
-        sortFreeList();
+      //  sortFreeList();
         return handle;
     }
 
@@ -228,7 +227,7 @@ public class MemoryManager {
         }
         addFreeBlock(blockSize, location);
         mergeBlocks();
-        sortFreeList();
+       // sortFreeList();
     }
 
 

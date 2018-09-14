@@ -12,11 +12,13 @@ public class CommandProcessorTest extends TestCase {
      * Tests the command processor
      */
     public void testConstructor() {
-        CommandProcessor processor = new CommandProcessor("32", "10",
-            "P1sampleInput.txt");
+       // CommandProcessor processor = new CommandProcessor("32", "10",
+       //     "P1sampleInput.txt");
+       // assertNotNull(processor.getHash());
+       // processor = new CommandProcessor("256", "10", "Piazzatrial.txt");
+        CommandProcessor processor = new CommandProcessor("128", "10", "P1mergetest.txt");
         assertNotNull(processor.getHash());
-        processor = new CommandProcessor("256", "10", "Piazzatrial.txt");
-        assertNotNull(processor.getHash());
+        
     }
 
 }
