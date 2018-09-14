@@ -16,6 +16,10 @@ public class LinkedList<E> implements LList<E> {
     /**
      * This represents a node in a singly linked list. This node stores data
      * along with having a pointer to the next node in the list
+     * 
+     * @author bob bao bob313 Christian Carminucci cdc97
+     *
+     * @param <D> data type
      */
     public static class Node<D> {
 

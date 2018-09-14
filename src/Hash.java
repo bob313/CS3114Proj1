@@ -108,8 +108,7 @@ public class Hash {
         if (search(key)) {
             int home = h(key, hashtable.length);
             int pos = home; // Initial position is the home slot
-            for (int i = 0; (!key.equals(
-                hashtable[pos].key())); i++) {
+            for (int i = 0; (!key.equals(hashtable[pos].key())); i++) {
                 pos = (home + probe(i)) % hashtable.length; // Next on probe
             } // sequence
             hashtable[pos].setDeleted(true);
@@ -138,8 +137,7 @@ public class Hash {
         if (hashtable[pos] == null) {
             return false;
         }
-        else if (!hashtable[pos].getDeleted() && key.equals((hashtable[pos])
-            .key())) { // Found it
+        else if (!hashtable[pos].getDeleted()) { // Found it
             return true;
         }
         return false; // K not in hash table
@@ -188,8 +186,7 @@ public class Hash {
         if (hashtable[pos] == null) {
             return null;
         }
-        else if (!hashtable[pos].getDeleted() && key.equals((hashtable[pos])
-            .key())) { // Found it
+        else if (!hashtable[pos].getDeleted()) { // Found it
             return hashtable[pos];
         }
         return null; // K not in hash table

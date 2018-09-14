@@ -1,18 +1,26 @@
-
+/**
+ * 
+ * @author bob313 cdc97
+ * @version sep 14 2018
+ *
+ */
 public class FreeBlock {
 
     private int size;
     private LinkedList<Integer> block;
-    
+
+
     /**
      * 
-     * @param size is the size of the freeblock
+     * @param blocksize
+     *            is the size of the freeblock
      */
     public FreeBlock(int blocksize) {
         size = blocksize;
         block = new LinkedList<Integer>();
     }
-    
+
+
     /**
      * 
      * @return the size
@@ -20,21 +28,25 @@ public class FreeBlock {
     public int getSize() {
         return size;
     }
-    
+
+
     /**
      * 
      * @return the linked list
      */
-    public LinkedList<Integer> getList(){
+    public LinkedList<Integer> getList() {
         return block;
     }
-    
+
+
     /**
      * Sets the list of the FreeBlock
-     * @param newList the new list to be used
+     * 
+     * @param newList
+     *            the new list to be used
      */
     public void setList(LinkedList<Integer> newList) {
         block = newList;
     }
-    
+
 }

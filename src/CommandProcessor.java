@@ -115,7 +115,7 @@ public class CommandProcessor {
         updateName = updateName.replaceFirst("add", "");
         updateName = formatString(updateName);
         String[] inputs = updateName.split("<SEP>");
-        for (int i =0; i < inputs.length; i++) {
+        for (int i = 0; i < inputs.length; i++) {
             inputs[i] = inputs[i].trim();
         }
         Handle handle = hash.searchHandle(inputs[0].trim());
@@ -159,6 +159,12 @@ public class CommandProcessor {
     }
 
 
+    /**
+     * Checks if the field exists in the record
+     * @param record the record
+     * @param field the field to check
+     * @return true if it does false if it it does not
+     */
     private boolean recordField(String[] record, String field) {
         for (int i = 1; i < record.length; i = i + 2) {
             if (record[i].equals(field)) {
@@ -180,7 +186,7 @@ public class CommandProcessor {
         updateName = updateName.replaceFirst("delete", "");
         updateName = formatString(updateName);
         String[] inputs = updateName.split("<SEP>");
-        for (int i =0; i < inputs.length; i++) {
+        for (int i = 0; i < inputs.length; i++) {
             inputs[i] = inputs[i].trim();
         }
         Handle handle = hash.searchHandle(inputs[0].trim());

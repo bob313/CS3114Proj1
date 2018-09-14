@@ -106,8 +106,10 @@ public class MemoryManager {
         }
         if (blocks != null) {
             blockLocation = blocks.getList().get(0);
-            if (blocks.getSize() > blockSize)
+            if (blocks.getSize() > blockSize) {
                 resizeBlock(blocks, blockSize);
+            }
+
         }
         else {
             expandMemoryPool();
@@ -243,7 +245,8 @@ public class MemoryManager {
                 .getList().size() - 1)) {
                 int size = free.get(i).getSize();
                 int loc = free.get(i).getList().get(count);
-                if (loc + size == free.get(i).getList().get(count + 1)) {
+                if (loc + size == free.get(i).getList().get(count + 1) && ((loc
+                    | size) == (size | free.get(i).getList().get(count + 1)))) {
                     addFreeBlock(size * 2, loc);
                     removeFreeBlock(size, loc + size);
                     removeFreeBlock(size, loc);
@@ -256,7 +259,7 @@ public class MemoryManager {
                 check = false;
             }
         }
-       
+
     }
 
 
@@ -264,17 +267,17 @@ public class MemoryManager {
      * Return the record with handle posHandle, up to size bytes, by
      * copying it into space.
      * 
-     * @param Handle
+     * @param handle
      *            is the record for the handle
      * @return the number of bytes actually copied into space.
      */
-    public String getRecord(Handle Handle) {
-        byte[] record = new byte[Handle.getLength()];
-        for (int i = 0; i < Handle.getLength(); i++) {
-            record[i] = memoryPool[Handle.getMemPool() + i];
+    public String getRecord(Handle handle) {
+        byte[] record = new byte[handle.getLength()];
+        for (int i = 0; i < handle.getLength(); i++) {
+            record[i] = memoryPool[handle.getMemPool() + i];
         }
         String str = new String(record);
-        return str.trim().replaceAll( "[\u0000-\u001f]", "" );
+        return str.trim().replaceAll("[\u0000-\u001f]", "");
     }
 
 
@@ -311,8 +314,8 @@ public class MemoryManager {
     public LinkedList<FreeBlock> getBlockList() {
         return free;
     }
-    
-    
+
+
     /**
      * Sorts outer lists of the free block list by size
      * and the inner lists by location. Both are least to greatest.
@@ -331,7 +334,7 @@ public class MemoryManager {
             temp.add(min);
         }
         free = temp;
-        
+
     }
 
 
@@ -340,13 +343,12 @@ public class MemoryManager {
      */
     private void sortInternalList(FreeBlock block) {
         LinkedList<Integer> temp = new LinkedList<>();
-        while (block.getList().size() > 0)
-        {
+        while (block.getList().size() > 0) {
             Integer min = block.getList().get(0);
             for (int j = 0; j < block.getList().size(); j++) {
                 if (block.getList().get(j) < min) {
                     min = block.getList().get(j);
-                    
+
                 }
             }
             block.getList().remove(min);

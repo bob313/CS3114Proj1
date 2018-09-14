@@ -44,7 +44,8 @@ public class HashTest extends TestCase {
         assertEquals(myHash.getHashtable().length, 16);
         assertEquals(myHash.getHandle(12).key(), "last");
     }
-    
+
+
     /**
      * more tests
      */
@@ -78,6 +79,7 @@ public class HashTest extends TestCase {
         myHash.print();
     }
 
+
     /**
      * more removal tests
      */
@@ -106,7 +108,8 @@ public class HashTest extends TestCase {
         assertEquals(myHash.remove("second"), false);
         assertEquals(myHash.remove("fifth"), false);
     }
-    
+
+
     /**
      * tests the searchHandle method
      */
@@ -121,6 +124,7 @@ public class HashTest extends TestCase {
         myHash.remove("fourth");
         assertNull(myHash.searchHandle("fourth"));
         assertNull(myHash.searchHandle("second"));
+        assertFalse(myHash.search("fourth"));
     }
 
 

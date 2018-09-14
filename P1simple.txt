@@ -8,5 +8,6 @@ delete 12 angry men
 update add Spiderman<SEP>Genre<SEP>movie
 print blocks
 update delete Spiderman<SEP>movie
+update delete Spiderman
 update delete Spiderman<SEP>Genre
 print blocks
