@@ -222,9 +222,8 @@ public class MemoryManager {
     public void remove(Handle theHandle) {
         int location = theHandle.getMemPool();
         int blockSize = findBlockSize(theHandle.getLength());
-        byte[] tempBytes = new byte[blockSize];
         for (int i = location; i < location + blockSize; i++) {
-            memoryPool[i] = tempBytes[i - location];
+            memoryPool[i] = 0;
         }
         addFreeBlock(blockSize, location);
         mergeBlocks();
@@ -236,9 +235,10 @@ public class MemoryManager {
      * Merges adjacent free blocks with the same size.
      */
     private void mergeBlocks() {
-        sortFreeList();
+        boolean check = false;
         for (int i = 0; i < free.size(); i++) {
             int count = 0;
+            sortFreeList();
             while (free.get(i).getList().size() > 1 && count < (free.get(i)
                 .getList().size() - 1)) {
                 int size = free.get(i).getSize();
@@ -247,10 +247,16 @@ public class MemoryManager {
                     addFreeBlock(size * 2, loc);
                     removeFreeBlock(size, loc + size);
                     removeFreeBlock(size, loc);
+                    check = true;
                 }
                 count++;
             }
+            if (check) {
+                i = -1;
+                check = false;
+            }
         }
+       
     }
 
 
@@ -268,7 +274,7 @@ public class MemoryManager {
             record[i] = memoryPool[Handle.getMemPool() + i];
         }
         String str = new String(record);
-        return str;
+        return str.trim().replaceAll( "[\u0000-\u001f]", "" );
     }
 
 
@@ -288,7 +294,7 @@ public class MemoryManager {
                     builder.append(" ");
                     builder.append(free.get(i).getList().get(j));
                 }
-                System.out.println(builder.toString());
+                System.out.println(builder.toString().trim());
             }
         }
     }
@@ -308,7 +314,7 @@ public class MemoryManager {
      * Sorts outer lists of the free block list by size
      * and the inner lists by location. Both are least to greatest.
      */
-    public void sortFreeList() {
+    private void sortFreeList() {
         LinkedList<FreeBlock> temp = new LinkedList<>();
         while (free.size() > 0) {
             FreeBlock min = free.get(0);

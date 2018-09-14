@@ -42,7 +42,7 @@ public class HashTest extends TestCase {
         myHash.add("last", last);
         myHash.print();
         assertEquals(myHash.getHashtable().length, 16);
-        assertEquals(myHash.getHandle(4).key(), "last");
+        assertEquals(myHash.getHandle(12).key(), "last");
     }
     
     /**

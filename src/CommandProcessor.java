@@ -116,7 +116,6 @@ public class CommandProcessor {
         updateName = formatString(updateName);
         String[] inputs = updateName.split("<SEP>");
         Handle handle = hash.searchHandle(inputs[0].trim());
-
         if (handle != null && inputs.length > 1) {
             String oldRecord = manager.getRecord(handle);
             String[] temp = oldRecord.split("<SEP>");
@@ -144,10 +143,10 @@ public class CommandProcessor {
             }
             hash.remove(inputs[0]);
             byte[] record = newRecord.getBytes();
-            System.out.println("Updated Record: |" + newRecord + "|");
             manager.remove(handle);
             Handle newHandle = manager.insert(record, record.length, inputs[0]);
             hash.add(inputs[0], newHandle);
+            System.out.println("Updated Record: |" + newRecord + "|");
         }
         else {
             System.out.println("|" + inputs[0].trim()

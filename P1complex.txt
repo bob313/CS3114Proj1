@@ -8,36 +8,24 @@ add stop or my mom will shoot
 add the simpsons
 add stop or my dog will shoot
 add Tom and Jerry
-add Bug’s life
+add Bug's life
 add Attack on Titans
 add Aladdin
 delete stop or my dog will shoot
 add Sindbad
 update add Sindbad<SEP>Genre<SEP>Film
-print blocks
 update add Aladin<SEP>Actors<SEP>Alaa Jasmine and the Gennie
-print blocks
 update add Aladdin<SEP>Actors<SEP>Alaa Jasmine and the Gennie
-print blocks
 update add Aladdin<SEP>Cast<SEP>Alaa Jasmine and the Gennie
-print blocks
 update delete Aladdin<SEP>Actors
-print blocks
 update add Aladdin<SEP>movie length<SEP>120:00
-print blocks
 update add the best we can do<SEP>G<SEP>4
 update add the best we can do<SEP>G<SEP>4
-print blocks
 add The Boss Baby
-print blocks
 add finding Dory
-print blocks
 update add the simpsons<SEP>feeling<SEP>crazy lol
-print blocks
-update add One piece
-print blocks
+update add One piece<SEP>feeling<SEP>Excited
 add One piece
-print blocks
 update add One piece<SEP>feeling<SEP>Excited
 print blocks
 add very long long long long long long long long record well not very long as I expected
