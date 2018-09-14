@@ -294,7 +294,10 @@ public class MemoryManager {
                     builder.append(" ");
                     builder.append(free.get(i).getList().get(j));
                 }
-                System.out.println(builder.toString().trim());
+                if (free.size() > 1 && i == 0) {
+                    builder.append(" ");
+                }
+                System.out.println(builder.toString());
             }
         }
     }

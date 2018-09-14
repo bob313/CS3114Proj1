@@ -115,6 +115,9 @@ public class CommandProcessor {
         updateName = updateName.replaceFirst("add", "");
         updateName = formatString(updateName);
         String[] inputs = updateName.split("<SEP>");
+        for (int i =0; i < inputs.length; i++) {
+            inputs[i] = inputs[i].trim();
+        }
         Handle handle = hash.searchHandle(inputs[0].trim());
         if (handle != null && inputs.length > 1) {
             String oldRecord = manager.getRecord(handle);
@@ -177,6 +180,9 @@ public class CommandProcessor {
         updateName = updateName.replaceFirst("delete", "");
         updateName = formatString(updateName);
         String[] inputs = updateName.split("<SEP>");
+        for (int i =0; i < inputs.length; i++) {
+            inputs[i] = inputs[i].trim();
+        }
         Handle handle = hash.searchHandle(inputs[0].trim());
         if (handle != null && inputs.length > 1) {
             String record = manager.getRecord(handle);

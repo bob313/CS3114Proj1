@@ -15,7 +15,7 @@ delete stop or my dog will shoot
 add Sindbad
 update add Sindbad<SEP>Genre<SEP>Film
 update add Aladin<SEP>Actors<SEP>Alaa Jasmine and the Gennie
-update add Aladdin<SEP>Actors<SEP>Alaa Jasmine and the Gennie
+update add Aladdin <SEP> Actors <SEP> Alaa Jasmine and the Gennie
 update add Aladdin<SEP>Cast<SEP>Alaa Jasmine and the Gennie
 update delete Aladdin<SEP>Actors
 update add Aladdin<SEP>movie length<SEP>120:00
