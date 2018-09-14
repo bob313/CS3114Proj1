@@ -29,4 +29,12 @@ public class FreeBlock {
         return block;
     }
     
+    /**
+     * Sets the list of the FreeBlock
+     * @param newList the new list to be used
+     */
+    public void setList(LinkedList<Integer> newList) {
+        block = newList;
+    }
+    
 }
