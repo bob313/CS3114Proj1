@@ -227,7 +227,6 @@ public class MemoryManager {
             memoryPool[i] = tempBytes[i - location];
         }
         addFreeBlock(blockSize, location);
-        sortFreeList();
         mergeBlocks();
         sortFreeList();
     }
@@ -237,6 +236,7 @@ public class MemoryManager {
      * Merges adjacent free blocks with the same size.
      */
     private void mergeBlocks() {
+        sortFreeList();
         for (int i = 0; i < free.size(); i++) {
             int count = 0;
             while (free.get(i).getList().size() > 1 && count < (free.get(i)
@@ -246,11 +246,6 @@ public class MemoryManager {
                 if (loc + size == free.get(i).getList().get(count + 1)) {
                     addFreeBlock(size * 2, loc);
                     removeFreeBlock(size, loc + size);
-                    removeFreeBlock(size, loc);
-                }
-                else if (loc - size == free.get(i).getList().get(count + 1)) {
-                    addFreeBlock(size * 2, loc - size);
-                    removeFreeBlock(size, loc - size);
                     removeFreeBlock(size, loc);
                 }
                 count++;

@@ -64,6 +64,7 @@ public class Hash {
             System.out.println("Name hash table size doubled to "
                 + hashtable.length + " slots.");
             this.remake(temp, hashtable);
+            pos = h(k, hashtable.length);
         }
         for (int i = 0; (hashtable[pos] != null); i++) {
             pos = (home + probe(i)) % hashtable.length; // probe
@@ -126,7 +127,7 @@ public class Hash {
      *            is the key to search for
      * @return true if key was found
      */
-    private boolean search(String key) {
+    public boolean search(String key) {
         int home = h(key, hashtable.length); // Home position for K
         int pos = home; // Initial position is the
                         // home slot

@@ -144,16 +144,26 @@ public class CommandProcessor {
             }
             hash.remove(inputs[0]);
             byte[] record = newRecord.getBytes();
+            System.out.println("Updated Record: |" + newRecord + "|");
             manager.remove(handle);
             Handle newHandle = manager.insert(record, record.length, inputs[0]);
             hash.add(inputs[0], newHandle);
-            System.out.println("Updated Record: |" + newRecord + "|");
         }
         else {
             System.out.println("|" + inputs[0].trim()
                 + "| not updated because it does not "
                 + "exist in the Name database.");
         }
+    }
+
+
+    private boolean recordField(String[] record, String field) {
+        for (int i = 1; i < record.length; i = i + 2) {
+            if (record[i].equals(field)) {
+                return (true);
+            }
+        }
+        return false;
     }
 
 
@@ -172,7 +182,7 @@ public class CommandProcessor {
         if (handle != null && inputs.length > 1) {
             String record = manager.getRecord(handle);
             String[] temp = record.split("<SEP>");
-            if (record.contains(inputs[1].trim())) {
+            if (recordField(temp, inputs[1].trim())) {
                 int found = 0;
                 for (int i = 0; !temp[i].equals(inputs[1].trim()); i++) {
                     found = i + 1;
@@ -231,15 +241,14 @@ public class CommandProcessor {
         name = addCommand.replaceFirst("add", "");
         name = formatString(name);
         byte[] record = name.getBytes();
-        boolean check;
-        Handle handle = manager.insert(record, record.length, name);
-        check = hash.add(name, handle);
-        if (check) {
+        boolean check = hash.search(name.trim());
+        if (!check) {
+            Handle handle = manager.insert(record, record.length, name);
+            hash.add(name, handle);
             System.out.println("|" + name
                 + "| has been added to the Name database.");
         }
         else {
-            manager.remove(handle);
             System.out.println("|" + name
                 + "| duplicates a record already in the Name database.");
         }
